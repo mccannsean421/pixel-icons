@@ -4,14 +4,17 @@ import './App.css';
 import Grid from './components/Grid';
 import IconList from "./utils/constants.js";
 import SearchBar from './components/SearchBar.js';
+import {useSelector, useDispatch} from "react-redux";
+import { updateSize } from './slices/iconSlice.js';
 
 function App() {
 
-  const [height, setHeight] = useState(0);
+  const size = useSelector((state) => state.icon.size);
+  const dispatch = useDispatch();
 
   function handleChange(e) {
-    console.log(e.target.value);
-    setHeight(e.target.value)
+    const newValue = e.target.value
+    dispatch(updateSize(newValue))
   }
 
   return (
@@ -22,14 +25,19 @@ function App() {
 
       <main>
         <SearchBar />
-        <label for="default-range" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size</label>
-        <input
-          id="default-range"
-          type="range"
-          value={height} 
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-          onChange={(e) => handleChange(e)}
-        />
+        
+        <div className="grid grid-cols-3 p-6">
+          <div className="max-w-sm rounded overflow-hidden shadow-lg">
+          <label for="default-range" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size: {size}px</label>
+          <input
+            id="default-range"
+            type="range"
+            value={size} 
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+            onChange={(e) => handleChange(e)}
+          />
+          </div>
+        </div>
         <Grid icons={IconList} height />
       </main>
     </div>
