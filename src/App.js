@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import { useState } from 'react';
 import './App.css';
 import Grid from './components/Grid';
 import IconList from "./utils/constants.js";
@@ -12,9 +10,15 @@ function App() {
   const size = useSelector((state) => state.icon.size);
   const dispatch = useDispatch();
 
-  function handleChange(e) {
-    const newValue = e.target.value
+  function handleSizeChange(e) {
+    const newValue = parseInt(e.target.value)
     dispatch(updateSize(newValue))
+    
+    const allSvgs = document.querySelectorAll("svg");
+    allSvgs.forEach((svg) => {
+      svg.setAttribute("width", size);
+      svg.setAttribute("height", size);
+    })
   }
 
   return (
@@ -34,7 +38,7 @@ function App() {
             type="range"
             value={size} 
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleSizeChange(e)}
           />
           </div>
         </div>

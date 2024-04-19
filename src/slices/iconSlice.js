@@ -8,7 +8,9 @@ export const iconSlice = createSlice({
     name: "icon",
     initialState,
     reducers: {
-        updateSize: (state, action) => state.size = action.payload
+        updateSize: (state, action) => {
+            state.size = action.payload; // Direct assignment, but immutable state
+        }
     }
 });
 
