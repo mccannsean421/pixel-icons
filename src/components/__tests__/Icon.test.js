@@ -1,3 +1,4 @@
+import React from "react";
 import Icon from "../Icon";
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
@@ -29,10 +30,9 @@ describe("<Icon />", () => {
     
     it("renders and icon without crashing", () => {
         render(
-            <Provider store={store}>
-        
+            <Provider store={store}>        
             <Icon {...mockProps} />
             </Provider>
-            );
+        );
     });
 });

@@ -1,11 +1,14 @@
 import { useSelector } from "react-redux";
+import styled from "styled-components";
+
+
 
 export default function Icon({ name, svg }) {
-    const size = useSelector((state) => state.icon.size);
+    const iconColor = useSelector((state) => state.icon.iconColor);
+    const iconSize= useSelector((state) => state.icon.size);
 
     function copySvg(e) {
         const svgData = e.currentTarget.innerHTML;
-        console.log("Copy svg");
 
         const el = document.createElement("textarea");
         el.value = svgData;
@@ -16,9 +19,23 @@ export default function Icon({ name, svg }) {
     }
 
     return (
-        <div className="icon cursor-pointer">
+        <StyledIcon
+            className="icon cursor-pointer"
+            iconColor={iconColor}
+            iconSize={iconSize}
+        >
             {/* Apply inline style directly to the SVG element */}
             <div dangerouslySetInnerHTML={{ __html: svg }} onClick={(e) => copySvg(e)}></div>
-        </div>
+        </StyledIcon>
     );
 }
+
+const StyledIcon = styled.div`
+    svg {
+        height: auto;
+        width: ${props => props.iconSize ? props.iconSize : "100px"}px
+    }
+    path {
+        fill: ${props => props.iconColor ? props.iconColor : "red"};
+    }
+`

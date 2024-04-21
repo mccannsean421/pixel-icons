@@ -13,12 +13,6 @@ function App() {
   function handleSizeChange(e) {
     const newValue = parseInt(e.target.value)
     dispatch(updateSize(newValue))
-    
-    const allSvgs = document.querySelectorAll("svg");
-    allSvgs.forEach((svg) => {
-      svg.setAttribute("width", size);
-      svg.setAttribute("height", size);
-    })
   }
 
   return (
