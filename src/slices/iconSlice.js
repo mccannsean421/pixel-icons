@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import IconList from "../utils/constants";
 
 const initialState = {
     size: 0,
-    searchValue: "Testing",
+    searchValue: "",
     iconColor: "magenta",
+    iconList: IconList,
 };
 
 export const iconSlice = createSlice({
@@ -14,14 +16,17 @@ export const iconSlice = createSlice({
             state.size = action.payload; // Direct assignment, but immutable state
         },
         updateSearchValue: (state, action) => {
-            state.searchValue = action.payload; // Direct assignment, but immutable state
+            const searchString = action.payload;
+            state.searchValue = searchString;
+
+            state.iconList = IconList.filter(icon => icon.name?.includes(searchString)) // Direct assignment, but immutable state
         },
         handleColourChange: (state, action) => {
-            state.iconColor = action.payload;
+            state.iconColor = action.payload.hex;
         }
     }
 });
 
-export const { updateSize, updateSearchValue } = iconSlice.actions;
+export const { updateSize, updateSearchValue, handleColourChange } = iconSlice.actions;
 
 export default iconSlice.reducer;

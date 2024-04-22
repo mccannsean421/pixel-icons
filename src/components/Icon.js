@@ -31,6 +31,7 @@ export default function Icon({ name, svg }) {
 }
 
 const StyledIcon = styled.div`
+    text-align:center;
     svg {
         height: auto;
         width: ${props => props.iconSize ? props.iconSize : "100px"}px
